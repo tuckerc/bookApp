@@ -8,9 +8,9 @@ require('dotenv').config();
 //////////////////////////////////////////////////
 // Dependencies
 //////////////////////////////////////////////////
-const express=require('express');
-const bodyParser=require('body-parser');
-const cors=require('cors');
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 const bookSearch = require('./js/bookSearch.js');
 
 //////////////////////////////////////////////////

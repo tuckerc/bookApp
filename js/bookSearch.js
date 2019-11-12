@@ -9,10 +9,10 @@ const superagent = require('superagent');
 // Declarations
 ///////////////////////////////////////////////////////
 function Book(book) {
-  this.title = book.items.volumeInfo.title;
-  this.etag = book.items.etag;
-  this.description = book.items.volumeInfo.description;
-  this.imageLink = book.items.volumeInfo.imageLinks.thumbnail;
+  this.title = book.volumeInfo.title;
+  this.etag = book.etag;
+  this.description = book.volumeInfo.description;
+  this.imageLink = book.volumeInfo.imageLinks.thumbnail;
 }
 
 function newSearch(req, res) {
@@ -21,11 +21,16 @@ function newSearch(req, res) {
 
 function volumeSearch(req, res) {
   let url = 'https://www.googleapis.com/books/v1/volumes?q=';
-  if (req.body.search[1] === 'title') { url += `+intitle:${req.body.search[0]}`; }
-  if (req.body.search[1] === 'author') { url += `+inauthor:${req.body.search[0]}`; }
+  if (req.body.searchType === 'title') { url += `+intitle:${req.body.searchField}`; }
+  if (req.body.searchType === 'author') { url += `+inauthor:${req.body.searchField}`; }
 
   superagent.get(url)
-    .then(searchResults => searchResults.body.items.map(book => new Book(book)))
+    .then(searchResults => {
+      console.log(searchResults.body.items);
+      searchResults.body.items.map(book => {
+        new Book(book);
+      });
+    })
     .then(results => {
       res.render('pages/searches/show', {searchResults: results});
     });
