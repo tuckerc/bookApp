@@ -26,13 +26,15 @@ function volumeSearch(req, res) {
 
   superagent.get(url)
     .then(searchResults => {
-      console.log(searchResults.body.items);
-      searchResults.body.items.map(book => {
-        new Book(book);
+      let tempArr = searchResults.body.items.map(book => {
+        return new Book(book);
       });
+      console.log(tempArr);
+      return tempArr;
     })
     .then(results => {
-      res.render('pages/searches/show', {searchResults: results});
+      console.log(results);
+      res.render('pages/searches/show', {results: results});
     });
 }
 
