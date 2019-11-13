@@ -33,6 +33,26 @@ app.get('/', (request, response) => {
 
 app.post('/search', bookSearch.volumeSearch);
 
+app.use('*', notFoundHandler);
+app.use(errorHandler);
+
+
+/////////////////////////////////////////////////////////////////////////
+/// not found handler
+/////////////////////////////////////////////////////////////////////////
+function notFoundHandler(request,response) {
+  response.status(404).send('Hmmm... Something went wrong. We couldn\'t find what you are looking for.');
+}
+
+/////////////////////////////////////////////////////////////////////////
+/// error handler
+/////////////////////////////////////////////////////////////////////////
+function errorHandler(err, req, res) {
+  console.log(err);
+  res.status(500).send(err);
+}
+
+
 app.listen(PORT, () => {
   console.log(`listening on http://localhost:${PORT}`);
-})
+});
