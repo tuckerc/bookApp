@@ -1,0 +1,41 @@
+body {
+    background: #999999;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    color: white;
+    font-size: 1.2em;
+    background: black;
+}
+
+h2 {
+    color: white;
+    font-size: 1em;
+    background-color: #444444;
+}
+
+form .title, form .author {
+    background: #CCCCCC;
+}
+
+form .submit {
+    background: black;
+    color: white;
+}
+
+.container .book {
+    background: #CCCCCC;
+}
+
+.book img, .book h3, .book h4, .book p {
+    background: #CCCCCC;
+}
+
+.book h3 {
+    text-align: center;
+}
+
+.book h4 {
+    text-align: center;
+}

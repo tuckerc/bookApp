@@ -8,11 +8,12 @@
     <%- include('../layouts/header') %>
     </header>
     <main>
+        <h2>Search by Title or Author</h2>
         <form method='POST' action='/search'>
-            <label>Search<input type='text' name='searchField' required></label>
-            <label><input type='submit' name='submit'></label>
-            <input type='radio' name='searchType' value='title' checked>Search by Title
-            <input type='radio' name='searchType' value='author'>Search by Author
+            <input class='searchField' type='text' name='searchField' placeholder='Enter a title or author' required>
+            <label class='title'><input class='title' type='radio' name='searchType' value='title' checked>Search by Title</label>
+            <label class='author'><input class='author' type='radio' name='searchType' value='author'>Search by Author</label>
+            <input class='submit' type='submit' name='submit' value='Search the Google Books API'>
         </form>
     </main>
     <footer></footer>
