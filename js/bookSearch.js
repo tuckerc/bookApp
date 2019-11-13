@@ -5,6 +5,7 @@
 ///////////////////////////////////////////////////////
 const superagent = require('superagent');
 const db = require('../db/db.js');
+const handlers = require('../handlers.js');
 
 ///////////////////////////////////////////////////////
 // Declarations
@@ -14,6 +15,16 @@ function Book(book, searchField) {
   if(book.etag) this.etag = book.etag;
   if(book.volumeInfo.description) this.description = book.volumeInfo.description;
   if(book.volumeInfo.imageLinks) this.image_link = book.volumeInfo.imageLinks.thumbnail;
+  if(book.volumeInfo.authors) {
+    let authorStr = '';
+    for(let i = 0; i < book.volumeInfo.authors.length; i++) {
+      if(i < book.volumeInfo.authors.length - 1) {
+        authorStr += `${book.volumeInfo.authors[i]}, `;
+      }
+      else authorStr += book.volumeInfo.authors[i];
+    }
+    this.authors = authorStr;
+  }
   this.searchField = searchField.toUpperCase();
 }
 
@@ -26,8 +37,6 @@ function volumeSearch(req, res) {
   db.getBook(req.body.searchField)
     .then(results => {
       if(results.rowCount) {
-        console.log('rendering from database');
-        console.log(results);
         res.render('pages/searches/show', {results: results.rows});
       }
       else {
@@ -39,19 +48,23 @@ function volumeSearch(req, res) {
         // grab new books
         superagent.get(url)
           .then(searchResults => {
-            let tempArr = searchResults.body.items.map(book => {
-              const newBook = new Book(book, req.body.searchField);
-              db.addBook(newBook);
-              return newBook;
-            });
-            return tempArr;
+            if(searchResults.body.items) {
+              let tempArr = searchResults.body.items.map(book => {
+                const newBook = new Book(book, req.body.searchField);
+                db.addBook(newBook);
+                return newBook;
+              });
+              return tempArr;
+            }
+            else return [];
           })
           .then(results => {
-            console.log('rendering from api');
             res.render('pages/searches/show', {results: results});
-          });
+          })
+          .catch(err => handlers.errorHandler(err, req, res));
       }
-    });
+    })
+    .catch(err => handlers.errorHandler(err, req, res));
 }
 
 

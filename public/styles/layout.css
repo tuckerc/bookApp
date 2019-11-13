@@ -1,0 +1,86 @@
+body {
+  display: grid;
+  grid-template: 8vh 8vh 1fr / 1fr;
+}
+
+header {
+  grid-row: 1 / 2;
+  grid-column: 1 / 2;
+  line-height: 8vh;
+}
+
+h1 {
+  margin-left: 2vw;
+}
+
+main {
+  grid-row: 2 / 4;
+  grid-column: 1 / 2;
+  display: grid;
+  grid-template: 7vh 1fr / 10% 1fr 10%;
+}
+
+main h2 {
+  grid-row: 1 / 2;
+  grid-column: 1 / 4;
+  text-align: center;
+  width: 100%;
+  line-height: 7vh;
+}
+
+main form {
+  grid-row: 2 / 3;
+  grid-column: 2 / 3;
+  display: grid;
+  grid-template: 9vh 3vh 9vh 3vh 9vh 3vh 9vh / 1fr;
+  margin-top: 5vh;
+}
+
+main .container {
+  grid-row: 2 / 3;
+  grid-column: 2 / 3;
+}
+
+.container .book {
+  display: grid;
+  grid-template: 4vh auto 2vh auto 2vh auto 2vh auto 4vh / 10% 1fr 10%;
+  margin: 5vh 4vw;
+}
+
+.book img {
+  grid-row: 2 / 3;
+  grid-column: 2 / 3;
+  display: block;
+  margin: 0 auto;
+}
+
+.book h3 {
+  grid-row: 4 / 5;
+  grid-column: 2 / 3;
+}
+
+.book h4 {
+  grid-row: 6 / 7;
+  grid-column: 2 / 3;
+}
+
+.book p {
+  grid-row: 8 / 9;
+  grid-column: 2 / 3;
+}
+
+form .searchField {
+  grid-row: 1 / 2;
+}
+
+form .title {
+  grid-row: 3 / 4;
+}
+
+form .author {
+  grid-row: 5 / 6;
+}
+
+form .submit {
+  grid-row: 7 / 8;
+}
