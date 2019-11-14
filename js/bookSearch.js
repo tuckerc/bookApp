@@ -12,7 +12,7 @@ const handlers = require('../handlers.js');
 ///////////////////////////////////////////////////////
 function Book(book, searchField) {
   if(book.volumeInfo.title) this.title = book.volumeInfo.title;
-  if(book.etag) this.etag = book.etag;
+  if(book.id) this.id = book.id;
   if(book.volumeInfo.description) this.description = book.volumeInfo.description;
   if(book.volumeInfo.imageLinks) this.image_link = book.volumeInfo.imageLinks.thumbnail;
   if(book.volumeInfo.authors) {
@@ -26,6 +26,12 @@ function Book(book, searchField) {
     this.authors = authorStr;
   }
   this.searchField = searchField.toUpperCase();
+}
+
+function showBook(req, res) {
+  console.log(req);
+  db.getBook
+  res.render('pages/index', )
 }
 
 function showLibrary(req, res) {
@@ -82,3 +88,4 @@ function volumeSearch(req, res) {
 exports.showLibrary = showLibrary;
 exports.volumeSearch = volumeSearch;
 exports.newSearch = newSearch;
+exports.showBook = showBook;
