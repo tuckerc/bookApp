@@ -31,6 +31,7 @@ app.set('view engine', 'ejs');
 app.get('/', bookSearch.showLibrary);
 app.get('/search', bookSearch.newSearch);
 app.post('/search', bookSearch.volumeSearch);
+app.get('/books/:id', bookSearch.showBook);
 
 app.use('*', handlers.notFoundHandler);
 app.use(handlers.errorHandler);
