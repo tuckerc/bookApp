@@ -31,8 +31,17 @@ function getBook(searchString) {
   return client.query(sql, safeVals);
 }
 
+//////////////////////////////////////////////////
+// function to retrieve all the books in db
+//////////////////////////////////////////////////
+function getAllBooks() {
+  const sql = 'select * from books order by title';
+  return client.query(sql);
+}
+
 ///////////////////////////////////////////////////
 // Exports
 ///////////////////////////////////////////////////
 exports.addBook = addBook;
 exports.getBook = getBook;
+exports.getAllBooks = getAllBooks;

@@ -5,14 +5,27 @@ body {
 
 header {
     color: white;
-    font-size: 1.2em;
+    font-weight: bold;
     background: black;
+}
+
+header h1 a {
+    font-size: 2em;
+}
+
+header a {
+    font-size: 1em;
 }
 
 h2 {
     color: white;
-    font-size: 1em;
+    font-size: 1.6em;
     background-color: #444444;
+}
+
+form input, form label {
+    border-radius: 0.2em;
+    font-size: 1.7em;
 }
 
 form .title, form .author {
@@ -30,6 +43,10 @@ form .submit {
 
 .book img, .book h3, .book h4, .book p {
     background: #CCCCCC;
+}
+
+.book img {
+    border: 1.5vh white solid;
 }
 
 .book h3 {
