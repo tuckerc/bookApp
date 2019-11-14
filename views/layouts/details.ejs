@@ -1,0 +1,10 @@
+<div class='container'>
+  <% results.forEach(result => { %>
+    <div class='book'>
+      <img src='<%= result.image_link %>'>
+      <a href='/books/<%= result.id %>'><h3><%= result.title %></h2></a>
+      <h4><%= result.authors %></h3>
+      <p><%= result.description %></p>
+    </div>
+  <% }) %>
+</div> 

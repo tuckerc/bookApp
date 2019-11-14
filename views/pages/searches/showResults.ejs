@@ -9,16 +9,7 @@
     </header>
     <main>
       <h2>Search Results</h2>
-      <div class='container'>
-        <% results.forEach(result => { %>
-          <div class='book'>
-            <a href='/books/:id'><img src='<%= result.image_link %>'></a>
-            <a href='/books/:id'><h3><%= result.title %></h2></a>
-            <h4><%=result.authors %></h3>
-            <p><%= result.description %></p>
-          </div>
-        <% }) %>
-      </div>  
+      <%- include('../../layouts/details') %>  
     </main>
     <footer>
 

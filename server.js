@@ -11,8 +11,9 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const bookSearch = require('./js/bookSearch.js');
+const methodOverride = require('method-override');
 const handlers = require('./handlers.js');
+const bookSearch = require('./js/bookSearch.js');
 
 //////////////////////////////////////////////////
 // Declarations
@@ -27,6 +28,14 @@ const PORT = process.env.PORT || 3000;
 //////////////////////////////////////////////////
 app.use( express.static( './public' ));
 app.set('view engine', 'ejs');
+
+app.use(methodOverride((req, res) => {
+  if(req.body && typeof req.body === 'object' && '_method' in req.body){
+    let method = req.body._method;
+    delete req.body._method;
+    return method;
+  }
+}));
 
 app.get('/', bookSearch.showLibrary);
 app.get('/search', bookSearch.newSearch);

@@ -16,8 +16,8 @@ client.on('error', err => console.error(err));
 // function to add a new book to books table
 //////////////////////////////////////////////////
 function addBook(book) {
-  const sql = 'insert into books (title, id, description, image_link, searchfield) values (($1), ($2), ($3), ($4), ($5))';
-  const safeVals = [book.title, book.id, book.description, book.image_link, book.searchField];
+  const sql = 'insert into books (title, author, id, description, image_link, searchfield) values (($1), ($2), ($3), ($4), ($5), ($6))';
+  const safeVals = [book.title, book.author, book.id, book.description, book.image_link, book.searchField];
   return client.query(sql, safeVals);
 }
 
@@ -35,9 +35,9 @@ function getBook(searchString) {
 // function to retrieve the book matching the
 // provided isbn
 //////////////////////////////////////////////////
-function getBookByISBN(isbn) {
-  const sql = 'select * from books where searchfield = ($1)';
-  const safeVals = [searchString.toUpperCase()];
+function getBookByID(id) {
+  const sql = 'select * from books where id = ($1)';
+  const safeVals = [id];
   return client.query(sql, safeVals);
 }
 
@@ -55,3 +55,4 @@ function getAllBooks() {
 exports.addBook = addBook;
 exports.getBook = getBook;
 exports.getAllBooks = getAllBooks;
+exports.getBookByID = getBookByID;

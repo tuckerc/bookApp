@@ -29,15 +29,19 @@ function Book(book, searchField) {
 }
 
 function showBook(req, res) {
-  console.log(req);
-  db.getBook
-  res.render('pages/index', )
+  db.getBookByID(req.params.id)
+    .then(results => {
+      res.render('pages/showBook', {results: results.rows});
+    })
+    .catch(err => handlers.errorHandler(err, req, res));
 }
 
 function showLibrary(req, res) {
   db.getAllBooks()
     .then(results => {
-      if(results.rowCount) res.render('pages/index', {results: results.rows});
+      if(results.rowCount) {
+        res.render('pages/index', {results: results.rows});
+      }
     })
     .catch(err => handlers.errorHandler(err, req, res));
 }
@@ -51,7 +55,7 @@ function volumeSearch(req, res) {
   db.getBook(req.body.searchField)
     .then(results => {
       if(results.rowCount) {
-        res.render('pages/searches/showResutls', {results: results.rows});
+        res.render('pages/searches/showResults', {results: results.rows});
       }
       else {
         //prepare url
