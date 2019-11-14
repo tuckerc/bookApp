@@ -28,8 +28,16 @@ function Book(book, searchField) {
   this.searchField = searchField.toUpperCase();
 }
 
+function showLibrary(req, res) {
+  db.getAllBooks()
+    .then(results => {
+      if(results.rowCount) res.render('pages/index', {results: results.rows});
+    })
+    .catch(err => handlers.errorHandler(err, req, res));
+}
+
 function newSearch(req, res) {
-  res.render('pages/index');
+  res.render('pages/searches/search');
 }
 
 function volumeSearch(req, res) {
@@ -37,7 +45,7 @@ function volumeSearch(req, res) {
   db.getBook(req.body.searchField)
     .then(results => {
       if(results.rowCount) {
-        res.render('pages/searches/show', {results: results.rows});
+        res.render('pages/searches/showResutls', {results: results.rows});
       }
       else {
         //prepare url
@@ -59,7 +67,7 @@ function volumeSearch(req, res) {
             else return [];
           })
           .then(results => {
-            res.render('pages/searches/show', {results: results});
+            res.render('pages/searches/showResults', {results: results});
           })
           .catch(err => handlers.errorHandler(err, req, res));
       }
@@ -71,5 +79,6 @@ function volumeSearch(req, res) {
 ///////////////////////////////////////////////////////
 // Exports
 ///////////////////////////////////////////////////////
-exports.newSearch = newSearch;
+exports.showLibrary = showLibrary;
 exports.volumeSearch = volumeSearch;
+exports.newSearch = newSearch;

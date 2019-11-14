@@ -28,10 +28,8 @@ const PORT = process.env.PORT || 3000;
 app.use( express.static( './public' ));
 app.set('view engine', 'ejs');
 
-app.get('/', (request, response) => {
-  response.render('pages/index');
-});
-
+app.get('/', bookSearch.showLibrary);
+app.get('/search', bookSearch.newSearch);
 app.post('/search', bookSearch.volumeSearch);
 
 app.use('*', handlers.notFoundHandler);

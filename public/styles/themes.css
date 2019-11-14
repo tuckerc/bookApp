@@ -5,9 +5,16 @@ body {
 
 header {
     color: white;
-    font-size: 2em;
     font-weight: bold;
     background: black;
+}
+
+header h1 a {
+    font-size: 2em;
+}
+
+header a {
+    font-size: 1em;
 }
 
 h2 {

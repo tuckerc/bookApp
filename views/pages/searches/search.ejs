@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../../layouts/head') %>
+</head>
+<body>
+    <header>
+    <%- include('../../layouts/header') %>
+    </header>
+    <main>
+        <h2>Search by Title or Author</h2>
+        <form method='POST' action='/search'>
+            <input class='searchField' type='text' name='searchField' placeholder='Enter a title or author' required>
+            <label class='title'>Title<input class='title' type='radio' name='searchType' value='title' checked></label>
+            <label class='author'>Author<input class='author' type='radio' name='searchType' value='author'></label>
+            <input class='submit' type='submit' name='submit' value='Search the Google Books API'>
+        </form>
+    </main>
+    <footer></footer>
+    <script src = "../../server.js"></script>
+</body>
+</html>
