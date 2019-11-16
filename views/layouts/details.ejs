@@ -5,6 +5,9 @@
       <a href='/books/<%= result.id %>'><h3><%= result.title %></h2></a>
       <h4><%= result.authors %></h3>
       <p><%= result.description %></p>
+      <form id='addBook' method="POST" action='/add'>
+        <input type='submit' name='addBook' class='submit' value = 'Add To Shelf'>
+      </form>
     </div>
   <% }) %>
 </div> 

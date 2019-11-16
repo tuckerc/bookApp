@@ -41,7 +41,7 @@ main h2 {
   line-height: 10.5vh;
 }
 
-main form {
+#searchForm {
   grid-row: 2 / 3;
   grid-column: 2 / 3;
   display: grid;
@@ -57,7 +57,7 @@ main .container {
 
 .container .book {
   display: grid;
-  grid-template: 4vh auto 2vh auto 2vh auto 2vh auto 4vh / 10% 1fr 10%;
+  grid-template: 4vh auto 2vh auto 2vh auto 2vh auto 2vh auto 4vh / 10% 1fr 10%;
   margin: 5vh 4vw;
 }
 
@@ -81,6 +81,19 @@ main .container {
 .book p {
   grid-row: 8 / 9;
   grid-column: 2 / 3;
+}
+
+#addBook, #addBook input {
+  grid-row: 10 / 11;
+  grid-column: 2 / 3;
+}
+
+#addBook input {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  padding: 2vh 2vw;
+  line-height: 6vh;
 }
 
 form input, form label {
