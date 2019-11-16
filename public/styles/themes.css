@@ -41,7 +41,7 @@ form .submit {
     background: #CCCCCC;
 }
 
-#addBook input {
+#addBook input[type='submit'] {
     font-size: 1.2em;
 }
 

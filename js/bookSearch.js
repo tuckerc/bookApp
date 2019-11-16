@@ -85,6 +85,11 @@ function volumeSearch(req, res) {
     .catch(err => handlers.errorHandler(err, req, res));
 }
 
+function addBook(req, res) {
+  console.log(req.body);
+  res.render('hello');
+}
+
 
 ///////////////////////////////////////////////////////
 // Exports
@@ -93,3 +98,4 @@ exports.showLibrary = showLibrary;
 exports.volumeSearch = volumeSearch;
 exports.newSearch = newSearch;
 exports.showBook = showBook;
+exports.addBook = addBook;

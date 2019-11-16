@@ -83,17 +83,21 @@ main .container {
   grid-column: 2 / 3;
 }
 
-#addBook, #addBook input {
+#addBook, #addBook input[type='submit'] {
   grid-row: 10 / 11;
   grid-column: 2 / 3;
 }
 
-#addBook input {
+#addBook input[type='submit'] {
   display: block;
   margin: 0 auto;
   text-align: center;
   padding: 2vh 2vw;
   line-height: 6vh;
+}
+
+input[name='id'] {
+  display: none;
 }
 
 form input, form label {
