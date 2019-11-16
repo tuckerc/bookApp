@@ -1,6 +1,11 @@
+html {
+  display: grid;
+  grid-template: 1fr / 1fr;
+}
+
 body {
   display: grid;
-  grid-template: 15vh 8vh 1fr / 1fr;
+  grid-template: auto auto 1fr / 1fr;
 }
 
 header {
@@ -8,7 +13,7 @@ header {
   grid-column: 1 / 2;
   line-height: 15vh;
   display: grid;
-  grid-template: 1fr / 30vw 30vw 1fr;
+  grid-template: 1fr / auto auto 1fr;
 }
 
 header h1 {
@@ -17,6 +22,7 @@ header h1 {
 }
 
 header a {
+  margin-left: 2vw;
   grid-column: 2 / 3;
 }
 
@@ -24,7 +30,7 @@ main {
   grid-row: 2 / 4;
   grid-column: 1 / 2;
   display: grid;
-  grid-template: 10.5vh 1fr / 10% 1fr 10%;
+  grid-template: auto 1fr / 10% 1fr 10%;
 }
 
 main h2 {
