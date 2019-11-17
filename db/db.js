@@ -4,30 +4,21 @@
 // Dependencies
 //////////////////////////////////////////////////
 const pg = require('pg');
+const handlers = require('../handlers.js');
 
 //////////////////////////////////////////////////
 // Database Setup
 //////////////////////////////////////////////////
 const client = new pg.Client(process.env.DB_URL);
 client.connect();
-client.on('error', err => console.error(err));
+client.on('error', err => handlers.errorHandler((err)));
 
 //////////////////////////////////////////////////
 // function to add a new book to books table
 //////////////////////////////////////////////////
 function addBook(book) {
-  const sql = 'insert into books (title, author, id, description, image_link, searchfield) values (($1), ($2), ($3), ($4), ($5), ($6))';
-  const safeVals = [book.title, book.author, book.id, book.description, book.image_link, book.searchField];
-  return client.query(sql, safeVals);
-}
-
-//////////////////////////////////////////////////
-// function to retrieve all the books
-// with key matching parameter
-//////////////////////////////////////////////////
-function getBook(searchString) {
-  const sql = 'select * from books where searchfield = ($1)';
-  const safeVals = [searchString.toUpperCase()];
+  const sql = 'insert into books (title, author, id, description, image_link) values (($1), ($2), ($3), ($4), ($5)) returning *';
+  const safeVals = [book.title, book.author, book.id, book.description, book.image_link];
   return client.query(sql, safeVals);
 }
 
@@ -53,6 +44,5 @@ function getAllBooks() {
 // Exports
 ///////////////////////////////////////////////////
 exports.addBook = addBook;
-exports.getBook = getBook;
 exports.getAllBooks = getAllBooks;
 exports.getBookByID = getBookByID;
