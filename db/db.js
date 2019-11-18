@@ -45,8 +45,8 @@ function getAllBooks() {
 //////////////////////////////////////////////////
 function updateBook(book) {
   let {title, author, id, description, image_link} = book;
-  const sql = 'update books set title=($1), author=($2), description=($3), image_link=($4) where id=($5) returning *';
-  const values = [title, author, id, description, image_link];
+  const sql = 'update books set title=$1, author=$2, description=$3, image_link=$4 where id=$5 returning *';
+  const values = [title, author, description, image_link, id];
   return client.query(sql, values);
 }
 

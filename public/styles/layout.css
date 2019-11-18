@@ -56,7 +56,7 @@ main .container {
 
 .container .book {
   display: grid;
-  grid-template: 4vh auto 2vh auto 2vh auto 2vh auto 4vh / 10% 1fr 10%;
+  grid-template: 4vh auto 2vh auto 2vh auto 2vh auto 2vh auto 2vh auto 4vh / 10% 1fr 10%;
   margin: 5vh 4vw;
 }
 
@@ -114,12 +114,22 @@ main .container {
 }
 
 #addBook, #addBook input[type='submit'] {
+  grid-row: 10 / 11;
+  grid-column: 2 / 3;
+}
+
+.book h4 {
   grid-row: 6 / 7;
   grid-column: 2 / 3;
 }
 
-#getUpdateBook, #getUpdateBook input {
+.book p {
   grid-row: 8 / 9;
+  grid-column: 2 / 3;
+}
+
+#getUpdateBook, #getUpdateBook input {
+  grid-row: 12 / 13;
   grid-column: 2 / 3;
 }
 
