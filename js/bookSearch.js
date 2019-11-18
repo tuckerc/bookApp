@@ -105,7 +105,10 @@ function showUpdateBook(req, res) {
 
 function updateBook(req, res) {
   db.updateBook(req.body)
-    .then(res.redirect(`/books/${req.body.id}`))
+    .then(result => {
+      console.log(result);
+      res.redirect(`/books/${req.body.id}`);
+    })
     .catch(err => handlers.errorHandler(err, req, res));
 }
 

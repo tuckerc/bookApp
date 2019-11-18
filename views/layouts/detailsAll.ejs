@@ -1,0 +1,18 @@
+<div class='container'>
+  <% results.forEach(result => { %>
+    <div class='book'>
+      <img src='<%= result.image_link %>'>
+      <a href='/books/<%= result.id %>'><h3><%= result.title %></h2></a>
+      <h4><%= result.author %></h4>
+      <p><%= result.description %></p>
+      <form id='addBook' method="POST" action='/add'>
+        <input type='text' name='id' value='<%= result.id %>'>
+        <input type='submit' name='addBook' class='submit' value = 'Add To Shelf'>
+      </form>
+      <form id='getUpdateBook' method='POST' action='/update'>
+        <input type='text' name='id' value='<%= result.id %>'>
+        <input type='submit' name='getUpdateBook' class='submit' value = 'Update Details'>
+      </form>
+    </div>
+  <% }) %>
+</div> 
