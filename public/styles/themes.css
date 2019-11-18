@@ -41,7 +41,7 @@ form .submit {
     background: #CCCCCC;
 }
 
-#addBook input, #getUpdateBook input {
+#addBook input, #getUpdateBook input, #deleteBook input {
     font-size: 1.2em;
 }
 

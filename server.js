@@ -44,6 +44,7 @@ app.post('/add', bookSearch.addBook);
 app.post('/update', bookSearch.showUpdateBook);
 app.post('/update-volume', bookSearch.updateBook);
 app.get('/books/:id', bookSearch.showBook);
+app.post('/delete', bookSearch.deleteBook);
 app.use('*', handlers.notFoundHandler);
 app.use(handlers.errorHandler);
 

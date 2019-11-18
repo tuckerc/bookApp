@@ -50,6 +50,15 @@ function updateBook(book) {
   return client.query(sql, values);
 }
 
+//////////////////////////////////////////////////
+// function to delete a book from the library
+//////////////////////////////////////////////////
+function deleteBook(id) {
+  const sql = 'delete from books where id=$1 returning *';
+  const values = [id];
+  return client.query(sql, values);
+}
+
 ///////////////////////////////////////////////////
 // Exports
 ///////////////////////////////////////////////////
@@ -57,3 +66,4 @@ exports.addBook = addBook;
 exports.getAllBooks = getAllBooks;
 exports.getBookByID = getBookByID;
 exports.updateBook = updateBook;
+exports.deleteBook = deleteBook;
