@@ -87,6 +87,7 @@ function addBook(req, res) {
       if(result.body) {
         db.addBook(new Book(result.body))
           .then((results) => {
+            console.log(results.body);
             res.render('pages/showBook', {results: results.rows});
           })
           .catch(err => handlers.errorHandler(err, req, res));
