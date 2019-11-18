@@ -10,22 +10,27 @@ const handlers = require('../handlers.js');
 ///////////////////////////////////////////////////////
 // Declarations
 ///////////////////////////////////////////////////////
-function Book(book, searchField) {
-  if(book.volumeInfo.title) this.title = book.volumeInfo.title;
+function Book(book) {
+  const bookInfo = book.volumeInfo;
+  if(bookInfo.title) this.title = bookInfo.title;
   if(book.id) this.id = book.id;
-  if(book.volumeInfo.description) this.description = book.volumeInfo.description;
-  if(book.volumeInfo.imageLinks) this.image_link = book.volumeInfo.imageLinks.thumbnail;
-  if(book.volumeInfo.authors) {
+  if(bookInfo.description) this.description = bookInfo.description;
+  if(bookInfo.imageLinks) {
+    if(bookInfo.imageLinks.medium) this.image_link = bookInfo.imageLinks.medium;
+    else if(bookInfo.imageLinks.small) this.image_link = bookInfo.imageLinks.small;
+    else if(bookInfo.imageLinks.thumbnail) this.image_link = bookInfo.imageLinks.thumbnail;
+
+  }
+  if(bookInfo.authors) {
     let authorStr = '';
-    for(let i = 0; i < book.volumeInfo.authors.length; i++) {
-      if(i < book.volumeInfo.authors.length - 1) {
-        authorStr += `${book.volumeInfo.authors[i]}, `;
+    for(let i = 0; i < bookInfo.authors.length; i++) {
+      if(i < bookInfo.authors.length - 1) {
+        authorStr += `${bookInfo.authors[i]}, `;
       }
-      else authorStr += book.volumeInfo.authors[i];
+      else authorStr += bookInfo.authors[i];
     }
     this.authors = authorStr;
   }
-  this.searchField = searchField.toUpperCase();
 }
 
 function showBook(req, res) {
@@ -52,36 +57,55 @@ function newSearch(req, res) {
 
 function volumeSearch(req, res) {
   
-  db.getBook(req.body.searchField)
-    .then(results => {
-      if(results.rowCount) {
-        res.render('pages/searches/showResults', {results: results.rows});
-      }
-      else {
-        //prepare url
-        let url = 'https://www.googleapis.com/books/v1/volumes?q=';
-        if (req.body.searchType === 'title') { url += `+intitle:${req.body.searchField}`; }
-        if (req.body.searchType === 'author') { url += `+inauthor:${req.body.searchField}`; }
+  //prepare url
+  let url = 'https://www.googleapis.com/books/v1/volumes?q=';
+  if (req.body.searchType === 'title') { url += `+intitle:${req.body.searchField}`; }
+  if (req.body.searchType === 'author') { url += `+inauthor:${req.body.searchField}`; }
         
-        // grab new books
-        superagent.get(url)
-          .then(searchResults => {
-            if(searchResults.body.items) {
-              let tempArr = searchResults.body.items.map(book => {
-                const newBook = new Book(book, req.body.searchField);
-                db.addBook(newBook);
-                return newBook;
-              });
-              return tempArr;
-            }
-            else return [];
-          })
-          .then(results => {
-            res.render('pages/searches/showResults', {results: results});
+  // grab new books
+  superagent.get(url)
+    .then(searchResults => {
+      if(searchResults.body.items) {
+        let tempArr = searchResults.body.items.map(book => {
+          const newBook = new Book(book);
+          return newBook;
+        });
+        return tempArr;
+      }
+      else return [];
+    })
+    .then(results => {
+      res.render('pages/searches/showResults', {results: results});
+    })
+    .catch(err => handlers.errorHandler(err, req, res));
+}
+
+function addBook(req, res) {
+  let url = `https://www.googleapis.com/books/v1/volumes/${req.body.id}`;
+  superagent.get(url)
+    .then(result => {
+      if(result.body) {
+        db.addBook(new Book(result.body))
+          .then((results) => {
+            res.render('pages/showBook', {results: results.rows});
           })
           .catch(err => handlers.errorHandler(err, req, res));
       }
     })
+    .catch(err => handlers.errorHandler(err, req, res));
+}
+
+function showUpdateBook(req, res) {
+  db.getBookByID(req.body.id)
+    .then(results => {
+      res.render('pages/updateBook', {results: results.rows});
+    })
+    .catch(err => handlers.errorHandler(err, req, res));
+}
+
+function updateBook(req, res) {
+  db.updateBook(req.body)
+    .then(res.redirect(`/books/${req.body.id}`))
     .catch(err => handlers.errorHandler(err, req, res));
 }
 
@@ -93,3 +117,6 @@ exports.showLibrary = showLibrary;
 exports.volumeSearch = volumeSearch;
 exports.newSearch = newSearch;
 exports.showBook = showBook;
+exports.addBook = addBook;
+exports.showUpdateBook = showUpdateBook;
+exports.updateBook = updateBook;

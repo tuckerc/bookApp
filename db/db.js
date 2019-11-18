@@ -4,30 +4,21 @@
 // Dependencies
 //////////////////////////////////////////////////
 const pg = require('pg');
+const handlers = require('../handlers.js');
 
 //////////////////////////////////////////////////
 // Database Setup
 //////////////////////////////////////////////////
 const client = new pg.Client(process.env.DB_URL);
 client.connect();
-client.on('error', err => console.error(err));
+client.on('error', err => handlers.errorHandler((err)));
 
 //////////////////////////////////////////////////
 // function to add a new book to books table
 //////////////////////////////////////////////////
 function addBook(book) {
-  const sql = 'insert into books (title, author, id, description, image_link, searchfield) values (($1), ($2), ($3), ($4), ($5), ($6))';
-  const safeVals = [book.title, book.author, book.id, book.description, book.image_link, book.searchField];
-  return client.query(sql, safeVals);
-}
-
-//////////////////////////////////////////////////
-// function to retrieve all the books
-// with key matching parameter
-//////////////////////////////////////////////////
-function getBook(searchString) {
-  const sql = 'select * from books where searchfield = ($1)';
-  const safeVals = [searchString.toUpperCase()];
+  const sql = 'insert into books (title, author, id, description, image_link) values (($1), ($2), ($3), ($4), ($5)) returning *';
+  const safeVals = [book.title, book.author, book.id, book.description, book.image_link];
   return client.query(sql, safeVals);
 }
 
@@ -49,10 +40,20 @@ function getAllBooks() {
   return client.query(sql);
 }
 
+//////////////////////////////////////////////////
+// function to update the details of a book
+//////////////////////////////////////////////////
+function updateBook(book) {
+  let {title, author, id, description, image_link} = book;
+  const sql = 'update books set title=($1), author=($2), description=($3), image_link=($4) where id=($5) returning *';
+  const values = [title, author, id, description, image_link];
+  return client.query(sql, values);
+}
+
 ///////////////////////////////////////////////////
 // Exports
 ///////////////////////////////////////////////////
 exports.addBook = addBook;
-exports.getBook = getBook;
 exports.getAllBooks = getAllBooks;
 exports.getBookByID = getBookByID;
+exports.updateBook = updateBook;

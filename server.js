@@ -40,8 +40,10 @@ app.use(methodOverride((req, res) => {
 app.get('/', bookSearch.showLibrary);
 app.get('/search', bookSearch.newSearch);
 app.post('/search', bookSearch.volumeSearch);
+app.post('/add', bookSearch.addBook);
+app.post('/update', bookSearch.showUpdateBook);
+app.post('/update-volume', bookSearch.updateBook);
 app.get('/books/:id', bookSearch.showBook);
-
 app.use('*', handlers.notFoundHandler);
 app.use(handlers.errorHandler);
 

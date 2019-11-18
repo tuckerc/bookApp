@@ -52,13 +52,52 @@ main h2 {
 main .container {
   grid-row: 2 / 3;
   grid-column: 2 / 3;
-  margin-top: 9vh;
 }
 
 .container .book {
   display: grid;
-  grid-template: 4vh auto 2vh auto 2vh auto 2vh auto 2vh auto 4vh / 10% 1fr 10%;
+  grid-template: 4vh auto 2vh auto 2vh auto 2vh auto 4vh / 10% 1fr 10%;
   margin: 5vh 4vw;
+}
+
+.container #updateBook {
+  display: grid;
+  grid-template: 4vh auto 2vh auto 2vh auto 2vh auto 2vh auto 4vh / 10% 1fr 3fr 10%;
+  margin: 0;
+}
+
+#updateBook label {
+  grid-column: 2 / 3;
+}
+
+#updateBook input, #updateBook textArea {
+  grid-column: 3 / 4;
+}
+
+#updateBook [name='image_link'] {
+  grid-row: 2 / 3;
+}
+
+#updateBook [name='title'] {
+  grid-row: 4 / 5;
+}
+
+#updateBook [name='authors'] {
+  grid-row: 6 / 7;
+}
+
+#updateBook [name='description'] {
+  grid-row: 8 / 9;
+}
+
+#updateBook input[name='updateBook']{
+  grid-row: 10 / 11;
+  grid-column: 2 / 4;
+}
+
+#updateBook a {
+  grid-row: 11 / 12;
+  grid-column: 2 / 4;
 }
 
 .book img {
@@ -66,6 +105,7 @@ main .container {
   grid-column: 2 / 3;
   display: block;
   margin: 0 auto;
+  width: 100%;
 }
 
 .book h3, .book a {
@@ -73,22 +113,17 @@ main .container {
   grid-column: 2 / 3;
 }
 
-.book h4 {
+#addBook, #addBook input[type='submit'] {
   grid-row: 6 / 7;
   grid-column: 2 / 3;
 }
 
-.book p {
+#getUpdateBook, #getUpdateBook input {
   grid-row: 8 / 9;
   grid-column: 2 / 3;
 }
 
-#addBook, #addBook input {
-  grid-row: 10 / 11;
-  grid-column: 2 / 3;
-}
-
-#addBook input {
+input[type='submit'] {
   display: block;
   margin: 0 auto;
   text-align: center;
@@ -96,9 +131,13 @@ main .container {
   line-height: 6vh;
 }
 
+input[name='id'] {
+  display: none;
+}
+
 form input, form label {
   line-height: 11vh;
-  padding-left: 3vw;
+  padding-left: 1vw;
 }
 
 form input[type='radio'] {
@@ -122,4 +161,8 @@ form .author {
 
 form .submit {
   grid-row: 7 / 8;
+}
+
+.book #updateBook, .book #updateBook input {
+  grid-row: 12 / 13;
 }

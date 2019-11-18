@@ -1,0 +1,17 @@
+<div class='container'>
+  <% results.forEach(result => { %>
+    <form id='updateBook' method='POST' action='/update-volume'>
+      <label name='image_link'>Image Url</label>
+      <textarea name='image_link' form='updateBook'><%= result.image_link %></textarea>
+      <label name='title'>Title</label>
+      <textarea name='title' form='updateBook'><%= result.title %>"></textarea>
+      <label name='authors'>Authors</label>
+      <textarea name='authors' form='updateBook'><%= result.authors %>'></textarea>
+      <label name='description'>Description</label>
+      <textarea name='description' form='updateBook'><%= result.description %></textarea>
+      <input type='text' name='id' value='<%= result.id %>'>
+      <input type='submit' name='updateBook' class='submit' value = 'Save'>
+      <a href='/books/<%= result.id %>'><h3>Cancel</h3></a>
+    </form>
+  <% }) %>
+</div> 
