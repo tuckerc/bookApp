@@ -106,8 +106,16 @@ function showUpdateBook(req, res) {
 function updateBook(req, res) {
   db.updateBook(req.body)
     .then(result => {
-      console.log(result);
       res.redirect(`/books/${req.body.id}`);
+    })
+    .catch(err => handlers.errorHandler(err, req, res));
+}
+
+function deleteBook(req, res) {
+  db.deleteBook(req.body.id)
+    .then(result => {
+      console.log(result);
+      res.redirect('/');
     })
     .catch(err => handlers.errorHandler(err, req, res));
 }
@@ -123,3 +131,4 @@ exports.showBook = showBook;
 exports.addBook = addBook;
 exports.showUpdateBook = showUpdateBook;
 exports.updateBook = updateBook;
+exports.deleteBook = deleteBook;
