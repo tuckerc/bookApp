@@ -85,15 +85,27 @@ function addBook(req, res) {
   superagent.get(url)
     .then(result => {
       if(result.body) {
-        console.log(res);
         db.addBook(new Book(result.body))
-          .then((result) => {
-            console.log(result);
-            showLibrary(req, res);
+          .then((results) => {
+            res.render('pages/showBook', {results: results.rows});
           })
           .catch(err => handlers.errorHandler(err, req, res));
       }
     })
+    .catch(err => handlers.errorHandler(err, req, res));
+}
+
+function showUpdateBook(req, res) {
+  db.getBookByID(req.body.id)
+    .then(results => {
+      res.render('pages/updateBook', {results: results.rows});
+    })
+    .catch(err => handlers.errorHandler(err, req, res));
+}
+
+function updateBook(req, res) {
+  db.updateBook(req.body)
+    .then(res.redirect(`/books/${req.body.id}`))
     .catch(err => handlers.errorHandler(err, req, res));
 }
 
@@ -106,3 +118,5 @@ exports.volumeSearch = volumeSearch;
 exports.newSearch = newSearch;
 exports.showBook = showBook;
 exports.addBook = addBook;
+exports.showUpdateBook = showUpdateBook;
+exports.updateBook = updateBook;

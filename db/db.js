@@ -40,9 +40,20 @@ function getAllBooks() {
   return client.query(sql);
 }
 
+//////////////////////////////////////////////////
+// function to update the details of a book
+//////////////////////////////////////////////////
+function updateBook(book) {
+  let {title, author, id, description, image_link} = book;
+  const sql = 'update books set title=($1), author=($2), description=($3), image_link=($4) where id=($5) returning *';
+  const values = [title, author, id, description, image_link];
+  return client.query(sql, values);
+}
+
 ///////////////////////////////////////////////////
 // Exports
 ///////////////////////////////////////////////////
 exports.addBook = addBook;
 exports.getAllBooks = getAllBooks;
 exports.getBookByID = getBookByID;
+exports.updateBook = updateBook;
